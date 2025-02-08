@@ -1,4 +1,4 @@
-package com.example.cinematalk
+package com.app.cinematalk
 
 import org.junit.Test
 
