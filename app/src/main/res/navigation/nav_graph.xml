@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.app.cinematalk.singup.SignUpFragment"
+        android:label="Sign Up">
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.app.cinematalk.login.LoginFragment"
+        android:label="Log In">
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.app.cinematalk.profile.ProfileFragment"
+        android:label="My Profile">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/reviewsFragment"
+        android:name="com.app.cinematalk.reviews.ReviewsFragment"
+        android:label="All Reviews">
+    </fragment>
+
+</navigation>
