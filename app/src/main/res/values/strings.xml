@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CinemaTalk</string>
+    <string name="header_title">Cinema Talk</string>
+    <string name="profileString">My Profile</string>
+    <string name="reviewsFeedString">Reviews</string>
+    <string name="nyReviewsFeedString">My Reviews</string>
+    <string name="logout_string">Logout</string>
 </resources>
