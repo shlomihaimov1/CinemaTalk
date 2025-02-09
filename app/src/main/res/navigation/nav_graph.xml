@@ -14,6 +14,12 @@
         android:id="@+id/loginFragment"
         android:name="com.app.cinematalk.login.LoginFragment"
         android:label="Log In">
+        <action
+            android:id="@+id/action_loginFragment_to_reviewsFragment"
+            app:destination="@id/reviewsFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
     </fragment>
 
     <fragment
