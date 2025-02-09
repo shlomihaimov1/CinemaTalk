@@ -6,5 +6,188 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Profile -->
+    <LinearLayout
+        android:id="@+id/profile_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Absolute ProgressBar -->
+        <ProgressBar
+            android:id="@+id/progress_bar_profile_photo"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="60dp"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/profile_image_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/user"
+            android:visibility="gone"
+            android:layout_marginTop="60dp"
+            android:contentDescription="Profile Image Placeholder" />
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <!-- Profile Greeting -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/user_profile_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/users_profile_default_string"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/edit_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_profile_string"
+                android:gravity="center"
+                android:text="@string/editProfile"
+                android:textColor="@color/gray"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Edit Profile -->
+    <LinearLayout
+        android:id="@+id/edit_profile_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="32dp"
+        android:visibility="invisible"
+        android:orientation="vertical">
+
+        <!-- Edit Profile Image -->
+        <FrameLayout
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp">
+
+            <!-- Profile Image Placeholder -->
+            <ImageView
+                android:id="@+id/profile_image_placeholder_edit"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/user"
+                android:visibility="gone"
+                android:contentDescription="Profile Image Placeholder" />
+
+            <!-- Profile Image -->
+            <ImageView
+                android:id="@+id/profile_image_edit"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:visibility="gone"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <!-- Edit Profile Image Button -->
+            <ImageView
+                android:id="@+id/change_profile_picture_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|top"
+                android:layout_marginEnd="-7dp"
+                android:layout_marginTop="-11dp"
+                android:src="@drawable/edit_icon"
+                android:contentDescription="Edit Profile Picture"
+                android:padding="8dp"
+                app:backgroundTint="@color/black" />
+        </FrameLayout>
+
+        <!-- First Name Section -->
+        <TextView
+            android:id="@+id/first_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/email_input"
+            android:layout_marginTop="35dp"
+            android:text="@string/firstName"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+
+        <EditText
+            android:id="@+id/first_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/firstNameText"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/input_box"
+            android:hint=""
+            android:padding="16dp"
+            android:textSize="16sp" />
+
+        <!-- Last Name Section -->
+        <TextView
+            android:id="@+id/last_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/first_name_input"
+            android:layout_marginTop="8dp"
+            android:text="@string/lastName"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+
+        <EditText
+            android:id="@+id/last_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lastNameText"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/input_box"
+            android:hint=""
+            android:padding="16dp"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/save_new_details_button"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:text="@string/save"
+            android:layout_marginHorizontal="100dp"
+            android:textSize="16sp"
+            android:layout_marginTop="45dp"
+            app:cornerRadius="16dp"
+            android:textStyle="bold"
+            android:backgroundTint="@color/red" />
+
+
+
+    </LinearLayout>
+
+    <!-- My Reviews -->
+    <LinearLayout
+        android:id="@+id/my_reviews_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/profile_main_layout"
+        android:paddingHorizontal="25dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
 
 </RelativeLayout>
