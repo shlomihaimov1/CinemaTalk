@@ -15,6 +15,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navigationView: NavigationView
     private lateinit var headerView: View
     private lateinit var toolbar: Toolbar
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +46,11 @@ class MainActivity : AppCompatActivity() {
         setupDrawer()
         setupNavigationView()
 
+        // Check if user is logged in and navigate to reviewsFragment if true
+        val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            navController.navigate(R.id.action_loginFragment_to_reviewsFragment)
+        }
     }
 
     // Set up the navigation controller

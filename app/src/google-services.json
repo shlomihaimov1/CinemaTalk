@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "84885009923",
+    "project_id": "cinematalk-804f1",
+    "storage_bucket": "cinematalk-804f1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:84885009923:android:2d1637e167181696cdc036",
+        "android_client_info": {
+          "package_name": "com.app.cinematalk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTH5g8BgBPE7N-AijO9bxyequPSaNAkeo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
