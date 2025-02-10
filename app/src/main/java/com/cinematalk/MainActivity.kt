@@ -18,7 +18,6 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
-
 class MainActivity : AppCompatActivity() {
 
     // Declare variables for navigation and UI elements
@@ -95,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         navigationView.setupWithNavController(navController)
- 
+        handleLogout()
     }
 
     // Handle navigation up action
@@ -112,5 +111,29 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Set up logout menu item click listener
+    private fun handleLogout() {
+        navigationView.menu
+            .findItem(R.id.LogoutFragment)
+            .setOnMenuItemClickListener { _ ->
+                logoutDialog()
+                true
+            }
+    }
+
+    // Show logout confirmation dialog
+    private fun logoutDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Logout")
+            .setMessage("Are you sure you want to logout?")
+            .setPositiveButton("Yes") { _, _ ->
+                auth = FirebaseAuth.getInstance()
+                auth.signOut()
+                navController.navigate(R.id.loginFragment)
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
 }
 
