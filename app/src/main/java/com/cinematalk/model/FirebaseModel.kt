@@ -35,7 +35,8 @@ class FirebaseModel {
                             val review = Review.fromJSON(json.data)
                             reviews.add(review)
                         }
-                        
+                        reviews.forEach { d -> d.rating = runBlocking { getMovieRank(d.imdbId) } }
+
                         callback(reviews)
                     }
 
