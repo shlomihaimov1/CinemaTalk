@@ -19,6 +19,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.cinematalk.R
 import com.app.cinematalk.common.ReviewBaseFragment
 import com.app.cinematalk.common.SharedViewModel
@@ -39,6 +40,7 @@ class ProfileFragment : ReviewBaseFragment(), ReviewCardsAdapter.OnReviewItemCli
     private lateinit var editProfileLayout: LinearLayout
     private lateinit var myReviewsLayout: LinearLayout
 
+    private lateinit var addNewReviewButton: ImageView
     private lateinit var editProfileButton: TextView
     private lateinit var userProfileString: TextView
 
@@ -53,6 +55,8 @@ class ProfileFragment : ReviewBaseFragment(), ReviewCardsAdapter.OnReviewItemCli
     private lateinit var lastNameInput: EditText
     private lateinit var profileImage: ImageView
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewModel: ReviewViewModel
 
     override fun getLayoutResourceId(): Int {
         return R.layout.fragment_profile
@@ -80,6 +84,7 @@ class ProfileFragment : ReviewBaseFragment(), ReviewCardsAdapter.OnReviewItemCli
         observeChangeName()
         observeUploadProfileImage()
 
+
         // Log and fetch profile image
         Log.d("ProfileFragment", "sharedViewModel.userMetaData: ${sharedViewModel.userMetaData}")
         profileViewModel.getProfileImage(sharedViewModel.userMetaData)
@@ -99,6 +104,9 @@ class ProfileFragment : ReviewBaseFragment(), ReviewCardsAdapter.OnReviewItemCli
         progressBarProfilePhoto = view.findViewById(R.id.progress_bar_profile_photo)
         profileImage = view.findViewById(R.id.profile_image)
         profileImagePlaceholder = view.findViewById(R.id.profile_image_placeholder)
+
+        // Upload new review
+        addNewReviewButton = view.findViewById(R.id.add_new_review_button)
         saveNewDetailsButton = view.findViewById(R.id.save_new_details_button)
 
         // Edit Profile
@@ -235,6 +243,13 @@ class ProfileFragment : ReviewBaseFragment(), ReviewCardsAdapter.OnReviewItemCli
     private fun handleChangeProfilePicture() {
         changeProfilePictureButton.setOnClickListener {
             pickImageContract.launch("image/*")
+        }
+    }
+
+    // Handle add new review button click
+    private fun handleAddNewReviewClick() {
+        addNewReviewButton.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_newReviewFragment)
         }
     }
 

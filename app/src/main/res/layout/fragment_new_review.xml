@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp">
+
+    <!-- Movie Name Title -->
+    <TextView
+        android:id="@+id/movie_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/message_box"
+        android:layout_marginTop="8dp"
+        android:text="Movie Name"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+
+    <EditText
+        android:id="@+id/movie_name_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailText"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/input_box"
+        android:hint="Enter movie name"
+        android:padding="16dp"
+        android:textSize="16sp"
+        />
+
+    <!-- Category Dropdown -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/type_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:cardCornerRadius="25dp"
+        app:strokeWidth="0dp"
+        app:cardBackgroundColor="@android:color/transparent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_box"
+            android:paddingHorizontal="8dp"
+            >
+
+            <Spinner
+                android:id="@+id/review_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select Product Type"
+                android:textSize="16sp"
+                android:background="@android:color/transparent" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@android:drawable/arrow_down_float"
+                android:paddingHorizontal="5dp" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Your Review -->
+    <TextView
+        android:id="@+id/your_review_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/message_box"
+        android:layout_marginTop="50dp"
+        android:text="Your Review"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textFontWeight="700"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/description_input_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/review_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top|start"
+                android:hint="Enter your review here..."
+                android:inputType="textMultiLine"
+                android:lines="4"
+                android:background="@drawable/input_box"
+                android:maxLines="10"
+                android:minLines="4" />
+
+            <ImageButton
+                android:id="@+id/review_attach_picture_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Attach Picture"
+                android:padding="5dp"
+                android:src="@drawable/attach_file_icon" />
+        </FrameLayout>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Save Review -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/review_submit"
+        style="@style/Widget.MaterialComponents.Button"
+        app:cornerRadius="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_marginTop="25dp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/red"
+        android:layout_marginHorizontal="100dp"
+        android:text="@string/save" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar_create_new_review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/last_name_input"
+        android:visibility="gone"
+    />
+</LinearLayout>
