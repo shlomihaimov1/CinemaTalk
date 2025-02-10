@@ -1,13 +1,15 @@
 package com.app.cinematalk.model
 
 import android.net.Uri
+import android.util.Log
+import com.app.cinematalk.utils.getMovieRank
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-
+import kotlinx.coroutines.runBlocking
 
 class FirebaseModel {
 
@@ -19,7 +21,29 @@ class FirebaseModel {
         const val REVIEWS_COLLECTION_PATH = "Reviews"
     }
 
+    // Get all reviews from Firestore since a specific timestamp
+    fun getAllReviews(since: Long, callback: (List<Review>) -> Unit) {
+        db.collection(REVIEWS_COLLECTION_PATH)
+            // .whereGreaterThanOrEqualTo(Review.LAST_UPDATED, Timestamp(since, 0))
+            .get()
+            .addOnCompleteListener {
+                when (it.isSuccessful) {
+                    true -> {
+                        val reviews: MutableList<Review> = mutableListOf()
 
+                        for (json in it.result) {
+                            val review = Review.fromJSON(json.data)
+                            reviews.add(review)
+                        }
+                        
+                        callback(reviews)
+                    }
+
+                    false -> callback(listOf())
+                }
+            }
+
+    }
 
     // Create a new review in Firestore and upload the attached picture
     fun createNewReview(review: Review, attachedPictureUri: Uri, callback: () -> Unit) {
@@ -63,5 +87,8 @@ class FirebaseModel {
         // TODO
     }
 
-
+    // Get the picture URL of a review from Firebase Storage
+    fun getReviewPic(picture: String): Task<Uri> {
+        return storage.reference.child(picture).downloadUrl
+    }
 }
