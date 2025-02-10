@@ -177,7 +177,7 @@
 
     </LinearLayout>
 
-    <!-- My Reviews -->
+        <!-- My Reviews -->
     <LinearLayout
         android:id="@+id/my_reviews_layout"
         android:layout_width="match_parent"
@@ -186,6 +186,42 @@
         android:paddingHorizontal="25dp"
         android:layout_marginTop="20dp"
         android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- My Reviews -->
+            <TextView
+                android:id="@+id/my_reviews_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="8dp"
+                android:text="@string/nyReviewsFeedString"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="20sp" />
+
+            <!-- Add Review -->
+            <ImageView
+                android:id="@+id/add_new_review_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/add_icon"
+                android:contentDescription="Add new review" />
+
+            <!-- Bottom Border -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/my_reviews_title"
+                android:layout_marginTop="8dp"
+                android:background="@color/light_gray" />
+        </RelativeLayout>
+
 
     </LinearLayout>
 
