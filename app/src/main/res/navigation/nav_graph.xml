@@ -8,6 +8,9 @@
         android:id="@+id/signupFragment"
         android:name="com.app.cinematalk.singup.SignUpFragment"
         android:label="Sign Up">
+        <action
+            android:id="@+id/action_signupFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment
@@ -29,10 +32,19 @@
 
     </fragment>
 
+
     <fragment
         android:id="@+id/reviewsFragment"
         android:name="com.app.cinematalk.reviews.ReviewsFragment"
         android:label="All Reviews">
+        <action
+            android:id="@+id/action_profileFragment_to_newReviewFragment"
+            app:destination="@id/newReviewFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/newReviewFragment"
+        android:name="com.app.cinematalk.reviews.NewReviewFragment"
+        android:label="Add Review" />
 
 </navigation>
