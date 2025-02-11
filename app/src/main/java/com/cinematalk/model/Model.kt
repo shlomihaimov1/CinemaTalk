@@ -127,7 +127,14 @@ class Model private constructor() {
 
     // Edit a review and refresh the lists
     fun editReview(reviewId: String, updatedTitle: String, updatedDescription: String, callback: () -> Unit) {
-        // TODO
+        firebaseModel.updateReview(reviewId, updatedTitle, updatedDescription) {
+            executor.execute {
+                database.reviewDao().updateTitleAndDescription(reviewId, updatedTitle, updatedDescription)
+            }
+
+            refreshAllReviews()
+            refreshMyReviews()
+        }
     }
 
     // Get the picture of a review

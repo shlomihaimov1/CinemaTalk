@@ -119,7 +119,36 @@ class ReviewCardsAdapter(
      * Handles the click event for editing a review card.
      */
     private fun handleClickEditCard(holder: ReviewViewHolder, position: Int) {
-        // TODO
+        val review = reviews[position]
+        holder.editCardButton.setOnClickListener {
+            holder.dropdownMenu.visibility = View.GONE
+
+            // Enable title and description for editing
+            holder.title.isFocusableInTouchMode = true
+            holder.title.isFocusable = true
+            holder.title.isCursorVisible = true
+            holder.title.inputType = InputType.TYPE_CLASS_TEXT
+            holder.title.setTextColor(Color.RED)
+            holder.title.requestFocus()
+
+            // Enable description for editing
+            holder.description.isFocusableInTouchMode = true
+            holder.description.isFocusable = true
+            holder.description.isCursorVisible = true // Make the cursor visible
+            holder.description.inputType = InputType.TYPE_CLASS_TEXT
+            holder.description.setTextColor(Color.RED)
+
+            // Show the submit button
+            holder.submitEditCardButton.visibility = View.VISIBLE
+
+            // Submit button listener
+            holder.submitEditCardButton.setOnClickListener {
+                onReviewItemClickListener?.onReviewItemClicked(
+                    review.id, review.userEmail,
+                    holder, "EditItem"
+                )
+            }
+        }
     }
 
     /**

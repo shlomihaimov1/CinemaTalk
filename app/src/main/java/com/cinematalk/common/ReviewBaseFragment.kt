@@ -82,7 +82,10 @@ abstract class ReviewBaseFragment : Fragment(), ReviewCardsAdapter.OnReviewItemC
         holder: ReviewCardsAdapter.ReviewViewHolder, mode: String
     ) {
         if(mode == "EditItem") {
-            // TODO
+            val updatedTitle = holder.title.text.toString()
+            val updatedDescription = holder.description.text.toString()
+
+            editCardHandler(reviewId, updatedTitle, updatedDescription)
         }
         if (mode == "DeleteItem") {
             MaterialAlertDialogBuilder(requireContext())
@@ -93,6 +96,18 @@ abstract class ReviewBaseFragment : Fragment(), ReviewCardsAdapter.OnReviewItemC
                 }
                 .setNegativeButton("Cancel", null)
                 .show()
+        }
+    }
+
+    // Handle review deletion
+    private fun deleteCardHandler(reviewId: String) {
+        Model.instance.deleteReview(reviewId) {}
+    }
+
+    // Handle review editing
+    private fun editCardHandler(reviewId: String, updatedTitle: String, updatedDescription: String) {
+        Model.instance.editReview(reviewId, updatedTitle, updatedDescription) {
+            findNavController().popBackStack()
         }
     }
 
