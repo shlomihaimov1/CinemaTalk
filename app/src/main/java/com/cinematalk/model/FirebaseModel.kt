@@ -46,7 +46,7 @@ class FirebaseModel {
 
     }
 
-        // Get reviews of the current user from Firestore since a specific timestamp
+    // Get reviews of the current user from Firestore since a specific timestamp
     fun getMyReviews(since: Long, callback: (List<Review>) -> Unit) {
         val email = currentUser?.email
 
@@ -62,7 +62,7 @@ class FirebaseModel {
                             val review = Review.fromJSON(json.data)
                             reviews.add(review)
                         }
-                        
+
                         reviews.forEach { d -> d.rating = runBlocking { getMovieRank(d.imdbId) } }
 
                         callback(reviews)
@@ -113,7 +113,16 @@ class FirebaseModel {
 
     // Delete a review from Firestore
     fun deleteReview(reviewId: String, callback: () -> Unit) {
-        // TODO
+        db.collection(REVIEWS_COLLECTION_PATH).document(reviewId).delete()
+            .addOnCompleteListener {
+                when (it.isSuccessful) {
+                    true -> {
+                        callback()
+                    }
+
+                    false -> callback()
+                }
+            }
     }
 
     // Get the picture URL of a review from Firebase Storage

@@ -44,6 +44,7 @@ class Model private constructor() {
         return myReviews ?: database.reviewDao().getMy(email)
     }
 
+    // Refresh all reviews from Firestore
     fun refreshAllReviews() {
         reviewsListLoadingState.value = LoadingState.LOADING
 
@@ -102,7 +103,7 @@ class Model private constructor() {
             }
         }
     }
-    
+
     // Add a new review and refresh the lists
     fun addReview(review: Review, attachedPictureUri: Uri, callback: () -> Unit) {
         firebaseModel.createNewReview(review, attachedPictureUri) {
@@ -114,7 +115,14 @@ class Model private constructor() {
 
     // Delete a review and refresh the lists
     fun deleteReview(reviewId: String, callback: () -> Unit) {
-        // TODO
+        firebaseModel.deleteReview(reviewId) {
+            executor.execute {
+                database.reviewDao().delete(reviewId)
+            }
+            refreshAllReviews()
+            refreshMyReviews()
+            callback()
+        }
     }
 
     // Edit a review and refresh the lists

@@ -43,6 +43,13 @@ interface ReviewDao {
     fun insert(vararg reviews: Review)
 
     /**
+     * Deletes a review from the database by its ID.
+     * @param reviewId The ID of the review to delete.
+     */
+    @Query("DELETE FROM Review WHERE id = :reviewId")
+    fun delete(reviewId: String)
+
+    /**
      * Deletes all reviews from the database.
      */
     @Query("DELETE FROM Review")

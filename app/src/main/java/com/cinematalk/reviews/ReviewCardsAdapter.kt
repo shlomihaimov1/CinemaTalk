@@ -108,7 +108,10 @@ class ReviewCardsAdapter(
     private fun handleClickDeleteCard(holder: ReviewViewHolder, position: Int) {
         val review = reviews[position]
         holder.deleteCardButton.setOnClickListener {
-            // TODO
+            onReviewItemClickListener?.onReviewItemClicked(
+                review.id, review.userEmail,
+                holder, "DeleteItem"
+            )
         }
     }
 
@@ -116,10 +119,7 @@ class ReviewCardsAdapter(
      * Handles the click event for editing a review card.
      */
     private fun handleClickEditCard(holder: ReviewViewHolder, position: Int) {
-        val review = reviews[position]
-        holder.editCardButton.setOnClickListener {
-            // TODO
-        }
+        // TODO
     }
 
     /**

@@ -85,7 +85,14 @@ abstract class ReviewBaseFragment : Fragment(), ReviewCardsAdapter.OnReviewItemC
             // TODO
         }
         if (mode == "DeleteItem") {
-            // TODO
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Delete Review")
+                .setMessage("Are you sure you want to delete this review?")
+                .setPositiveButton("Delete") { _, _ ->
+                    deleteCardHandler(reviewId)
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
         }
     }
 
