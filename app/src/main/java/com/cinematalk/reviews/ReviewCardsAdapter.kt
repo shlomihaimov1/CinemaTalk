@@ -108,7 +108,10 @@ class ReviewCardsAdapter(
     private fun handleClickDeleteCard(holder: ReviewViewHolder, position: Int) {
         val review = reviews[position]
         holder.deleteCardButton.setOnClickListener {
-            // TODO
+            onReviewItemClickListener?.onReviewItemClicked(
+                review.id, review.userEmail,
+                holder, "DeleteItem"
+            )
         }
     }
 
@@ -118,7 +121,33 @@ class ReviewCardsAdapter(
     private fun handleClickEditCard(holder: ReviewViewHolder, position: Int) {
         val review = reviews[position]
         holder.editCardButton.setOnClickListener {
-            // TODO
+            holder.dropdownMenu.visibility = View.GONE
+
+            // Enable title and description for editing
+            holder.title.isFocusableInTouchMode = true
+            holder.title.isFocusable = true
+            holder.title.isCursorVisible = true
+            holder.title.inputType = InputType.TYPE_CLASS_TEXT
+            holder.title.setTextColor(Color.RED)
+            holder.title.requestFocus()
+
+            // Enable description for editing
+            holder.description.isFocusableInTouchMode = true
+            holder.description.isFocusable = true
+            holder.description.isCursorVisible = true // Make the cursor visible
+            holder.description.inputType = InputType.TYPE_CLASS_TEXT
+            holder.description.setTextColor(Color.RED)
+
+            // Show the submit button
+            holder.submitEditCardButton.visibility = View.VISIBLE
+
+            // Submit button listener
+            holder.submitEditCardButton.setOnClickListener {
+                onReviewItemClickListener?.onReviewItemClicked(
+                    review.id, review.userEmail,
+                    holder, "EditItem"
+                )
+            }
         }
     }
 

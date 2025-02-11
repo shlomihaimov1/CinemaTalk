@@ -46,12 +46,13 @@ class FirebaseModel {
 
     }
 
-        // Get reviews of the current user from Firestore since a specific timestamp
+    // Get reviews of the current user from Firestore since a specific timestamp
     fun getMyReviews(since: Long, callback: (List<Review>) -> Unit) {
         val email = currentUser?.email
 
         db.collection(REVIEWS_COLLECTION_PATH)
             .whereEqualTo("userEmail", email)
+            // .whereGreaterThanOrEqualTo(Review.LAST_UPDATED, Timestamp(since, 0))
             .get()
             .addOnCompleteListener {
                 when (it.isSuccessful) {
@@ -62,7 +63,6 @@ class FirebaseModel {
                             val review = Review.fromJSON(json.data)
                             reviews.add(review)
                         }
-                        
                         reviews.forEach { d -> d.rating = runBlocking { getMovieRank(d.imdbId) } }
 
                         callback(reviews)
@@ -108,12 +108,35 @@ class FirebaseModel {
 
     // Update a review in Firestore
     fun updateReview(reviewId: String, updatedTitle: String, updatedDescription: String, callback: () -> Unit) {
-        // TODO
+        val reviewRef = db.collection(REVIEWS_COLLECTION_PATH).document(reviewId)
+
+        val updatedData = hashMapOf(
+            "name" to updatedTitle,
+            "description" to updatedDescription
+        )
+
+        reviewRef.update(updatedData as Map<String, Any>)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    callback()
+                } else {
+                    Log.e("EditReview", "Failed to update review", task.exception)
+                }
+            }
     }
 
     // Delete a review from Firestore
     fun deleteReview(reviewId: String, callback: () -> Unit) {
-        // TODO
+        db.collection(REVIEWS_COLLECTION_PATH).document(reviewId).delete()
+            .addOnCompleteListener {
+                when (it.isSuccessful) {
+                    true -> {
+                        callback()
+                    }
+
+                    false -> callback()
+                }
+            }
     }
 
     // Get the picture URL of a review from Firebase Storage

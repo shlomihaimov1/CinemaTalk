@@ -43,6 +43,22 @@ interface ReviewDao {
     fun insert(vararg reviews: Review)
 
     /**
+     * Updates only the title and description of a specific review.
+     * @param reviewId The ID of the review to update.
+     * @param title The new title for the review.
+     * @param description The new description for the review.
+     */
+    @Query("UPDATE Review SET name = :title, description = :description WHERE id = :reviewId")
+    fun updateTitleAndDescription(reviewId: String, title: String, description: String)
+
+    /**
+     * Deletes a review from the database by its ID.
+     * @param reviewId The ID of the review to delete.
+     */
+    @Query("DELETE FROM Review WHERE id = :reviewId")
+    fun delete(reviewId: String)
+
+    /**
      * Deletes all reviews from the database.
      */
     @Query("DELETE FROM Review")
