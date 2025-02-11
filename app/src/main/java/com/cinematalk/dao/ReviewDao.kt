@@ -12,6 +12,14 @@ import com.app.cinematalk.model.Review
 interface ReviewDao {
 
     /**
+     * Retrieves all reviews created by a specific user.
+     * @param email The email of the user whose reviews are to be fetched.
+     * @return LiveData containing a list of the user's reviews.
+     */
+    @Query("SELECT * FROM Review WHERE userEmail = :email")
+    fun getMy(email: String): LiveData<MutableList<Review>>
+
+    /**
      * Retrieves all reviews from the database.
      * @return LiveData containing a list of all reviews.
      */
@@ -34,4 +42,9 @@ interface ReviewDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg reviews: Review)
 
+    /**
+     * Deletes all reviews from the database.
+     */
+    @Query("DELETE FROM Review")
+    fun deleteAll()
 }

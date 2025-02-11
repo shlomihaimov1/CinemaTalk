@@ -46,6 +46,34 @@ class FirebaseModel {
 
     }
 
+        // Get reviews of the current user from Firestore since a specific timestamp
+    fun getMyReviews(since: Long, callback: (List<Review>) -> Unit) {
+        val email = currentUser?.email
+
+        db.collection(REVIEWS_COLLECTION_PATH)
+            .whereEqualTo("userEmail", email)
+            .get()
+            .addOnCompleteListener {
+                when (it.isSuccessful) {
+                    true -> {
+                        val reviews: MutableList<Review> = mutableListOf()
+
+                        for (json in it.result) {
+                            val review = Review.fromJSON(json.data)
+                            reviews.add(review)
+                        }
+                        
+                        reviews.forEach { d -> d.rating = runBlocking { getMovieRank(d.imdbId) } }
+
+                        callback(reviews)
+                    }
+
+                    false -> callback(listOf())
+                }
+            }
+
+    }
+
     // Create a new review in Firestore and upload the attached picture
     fun createNewReview(review: Review, attachedPictureUri: Uri, callback: () -> Unit) {
 

@@ -177,7 +177,7 @@
 
     </LinearLayout>
 
-        <!-- My Reviews -->
+    <!-- My Reviews -->
     <LinearLayout
         android:id="@+id/my_reviews_layout"
         android:layout_width="match_parent"
@@ -221,6 +221,21 @@
                 android:layout_marginTop="8dp"
                 android:background="@color/light_gray" />
         </RelativeLayout>
+
+        <!-- My Reviews -->
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/reviews_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
 
     </LinearLayout>

@@ -20,10 +20,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.app.cinematalk.R
 import com.app.cinematalk.common.ReviewBaseFragment
 import com.app.cinematalk.common.SharedViewModel
 import com.app.cinematalk.model.Model
+import com.app.cinematalk.reviews.ReviewCardsAdapter
+import com.app.cinematalk.reviews.ReviewViewModel
 import com.app.cinematalk.singup.UserProperties
 import com.app.cinematalk.utils.RequestStatus
 import com.app.cinematalk.utils.isString
@@ -84,6 +87,14 @@ class ProfileFragment : ReviewBaseFragment(), ReviewCardsAdapter.OnReviewItemCli
         observeChangeName()
         observeUploadProfileImage()
 
+        // Set up RecyclerView for reviews
+        viewModel = ViewModelProvider(this)[ReviewViewModel::class.java]
+        viewModel.myReviews = Model.instance.getMyReviews()
+
+        setupRecyclerView()
+        checkInitializationShareViewModel()
+        observeReviewViewModel()
+        observeInitializeUserDataStatus()
 
         // Log and fetch profile image
         Log.d("ProfileFragment", "sharedViewModel.userMetaData: ${sharedViewModel.userMetaData}")
@@ -116,6 +127,8 @@ class ProfileFragment : ReviewBaseFragment(), ReviewCardsAdapter.OnReviewItemCli
         firstNameInput = view.findViewById(R.id.first_name_input)
         lastNameInput = view.findViewById(R.id.last_name_input)
 
+        // My Reviews
+        recyclerView = view.findViewById(R.id.reviews_recycler_view)
     }
 
     // Initialize user name
@@ -244,6 +257,21 @@ class ProfileFragment : ReviewBaseFragment(), ReviewCardsAdapter.OnReviewItemCli
         changeProfilePictureButton.setOnClickListener {
             pickImageContract.launch("image/*")
         }
+    }
+
+    // Set up RecyclerView for reviews
+    private fun setupRecyclerView() {
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    // Observe review view model
+    private fun observeReviewViewModel() {
+        observeReviewViewModel(recyclerView, viewModel.myReviews)
+    }
+
+    // Observe initialization of user data status
+    private fun observeInitializeUserDataStatus() {
+        observeInitializeUserDataStatusBase()
     }
 
     // Handle add new review button click
