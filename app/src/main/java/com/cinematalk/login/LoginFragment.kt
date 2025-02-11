@@ -97,7 +97,7 @@ class LoginFragment : Fragment() {
                 updateSharedViewModel(result)
                 closeKeyboard(requireContext(), requireView())
                 findNavController().navigate(R.id.action_loginFragment_to_reviewsFragment)
-            } else if (result.first.isEmpty() && result.second.isEmpty()) {
+            } else if (result.first.isEmpty() && result.second.isEmpty() && (emailInput.text.toString().isEmpty() || passwordInput.text.toString().isEmpty())) {
                 hideLoading()
             } else {
                 // Invalid credentials case
