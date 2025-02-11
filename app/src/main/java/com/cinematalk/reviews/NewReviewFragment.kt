@@ -112,7 +112,8 @@ class NewReviewFragment : Fragment() {
         val snackBar = Snackbar.make(rootView, message, Snackbar.LENGTH_SHORT)
         val snackBarView: View = snackBar.view
         snackBarView.setBackgroundColor(resources.getColor(R.color.black))
-        val textView: TextView = snackBarView.findViewById(com.google.android.material.R.id.snackbar_text)
+        val textView: TextView =
+            snackBarView.findViewById(com.google.android.material.R.id.snackbar_text)
         textView.setTextColor(resources.getColor(R.color.white)) // Set your desired text color
         snackBar.show()
     }

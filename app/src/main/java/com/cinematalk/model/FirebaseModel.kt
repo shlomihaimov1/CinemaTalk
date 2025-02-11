@@ -52,7 +52,6 @@ class FirebaseModel {
 
         db.collection(REVIEWS_COLLECTION_PATH)
             .whereEqualTo("userEmail", email)
-            // .whereGreaterThanOrEqualTo(Review.LAST_UPDATED, Timestamp(since, 0))
             .get()
             .addOnCompleteListener {
                 when (it.isSuccessful) {
