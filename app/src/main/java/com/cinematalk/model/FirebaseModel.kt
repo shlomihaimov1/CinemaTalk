@@ -52,6 +52,7 @@ class FirebaseModel {
 
         db.collection(REVIEWS_COLLECTION_PATH)
             .whereEqualTo("userEmail", email)
+            // .whereGreaterThanOrEqualTo(Review.LAST_UPDATED, Timestamp(since, 0))
             .get()
             .addOnCompleteListener {
                 when (it.isSuccessful) {
@@ -106,12 +107,13 @@ class FirebaseModel {
     }
 
     // Update a review in Firestore
-    fun updateReview(reviewId: String, updatedTitle: String, updatedDescription: String, callback: () -> Unit) {
+    fun updateReview(reviewId: String, updatedTitle: String, updatedDescription: String, imdbId: String, callback: () -> Unit) {
         val reviewRef = db.collection(REVIEWS_COLLECTION_PATH).document(reviewId)
 
         val updatedData = hashMapOf(
             "name" to updatedTitle,
-            "description" to updatedDescription
+            "description" to updatedDescription,
+            "imdbId" to imdbId
         )
 
         reviewRef.update(updatedData as Map<String, Any>)

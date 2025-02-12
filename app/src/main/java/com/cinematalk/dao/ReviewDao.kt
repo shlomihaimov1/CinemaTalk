@@ -48,8 +48,8 @@ interface ReviewDao {
      * @param title The new title for the review.
      * @param description The new description for the review.
      */
-    @Query("UPDATE Review SET name = :title, description = :description WHERE id = :reviewId")
-    fun updateTitleAndDescription(reviewId: String, title: String, description: String)
+    @Query("UPDATE Review SET name = :title, description = :description, imdbId = :imdbId WHERE id = :reviewId")
+    fun updateTitleAndDescription(reviewId: String, title: String, description: String, imdbId: String)
 
     /**
      * Deletes a review from the database by its ID.
