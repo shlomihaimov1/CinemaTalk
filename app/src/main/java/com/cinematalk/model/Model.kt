@@ -5,8 +5,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.app.cinematalk.dao.AppLocalDatabase
+import com.app.cinematalk.utils.getMovieRank
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.runBlocking
 import java.util.concurrent.Executors
 
 class Model private constructor() {
@@ -66,10 +68,14 @@ class Model private constructor() {
                         if (time < it)
                             time = review.lastUpdated ?: System.currentTimeMillis()
                     }
+
+                    // Update imdb rating if needed
+//                    review.rating = runBlocking { getMovieRank(review.imdbId) }
                 }
 
                 // 4. Update local data
                 Review.lastUpdated = time
+
                 reviewsListLoadingState.postValue(LoadingState.LOADED)
             }
         }
@@ -126,10 +132,10 @@ class Model private constructor() {
     }
 
     // Edit a review and refresh the lists
-    fun editReview(reviewId: String, updatedTitle: String, updatedDescription: String, callback: () -> Unit) {
-        firebaseModel.updateReview(reviewId, updatedTitle, updatedDescription) {
+    fun editReview(reviewId: String, updatedTitle: String, updatedDescription: String, imdbId: String, callback: () -> Unit) {
+        firebaseModel.updateReview(reviewId, updatedTitle, updatedDescription, imdbId) {
             executor.execute {
-                database.reviewDao().updateTitleAndDescription(reviewId, updatedTitle, updatedDescription)
+                database.reviewDao().updateTitleAndDescription(reviewId, updatedTitle, updatedDescription, imdbId)
             }
 
             refreshAllReviews()

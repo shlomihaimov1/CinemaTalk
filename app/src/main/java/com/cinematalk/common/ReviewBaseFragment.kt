@@ -18,8 +18,10 @@ import com.app.cinematalk.model.Review
 import com.app.cinematalk.profile.UserMetaData
 import com.app.cinematalk.reviews.ReviewCardsAdapter
 import com.app.cinematalk.utils.closeKeyboard
+import com.app.cinematalk.utils.getMovieId
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.runBlocking
 
 abstract class ReviewBaseFragment : Fragment(), ReviewCardsAdapter.OnReviewItemClickListener {
     // Shared ViewModel to access user metadata
@@ -85,7 +87,11 @@ abstract class ReviewBaseFragment : Fragment(), ReviewCardsAdapter.OnReviewItemC
             val updatedTitle = holder.title.text.toString()
             val updatedDescription = holder.description.text.toString()
 
-            editCardHandler(reviewId, updatedTitle, updatedDescription)
+            val imdbId = runBlocking {
+                getMovieId(updatedTitle)
+            }
+
+            editCardHandler(reviewId, updatedTitle, updatedDescription, imdbId)
         }
         if (mode == "DeleteItem") {
             MaterialAlertDialogBuilder(requireContext())
@@ -105,8 +111,8 @@ abstract class ReviewBaseFragment : Fragment(), ReviewCardsAdapter.OnReviewItemC
     }
 
     // Handle review editing
-    private fun editCardHandler(reviewId: String, updatedTitle: String, updatedDescription: String) {
-        Model.instance.editReview(reviewId, updatedTitle, updatedDescription) {
+    private fun editCardHandler(reviewId: String, updatedTitle: String, updatedDescription: String, imdbId: String) {
+        Model.instance.editReview(reviewId, updatedTitle, updatedDescription, imdbId) {
             findNavController().popBackStack()
         }
     }
